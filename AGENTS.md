@@ -62,6 +62,29 @@ src/
 **Public Assets**:
 - `public/` — Static files (next.svg, vercel.svg, favicon, etc.)
 
+**Documentation**:
+- `docs/` — Additional documentation including architecture and design patterns
+
+---
+
+## Files & Directories Agents Should NOT Read
+
+The following are build artifacts, dependencies, or auto-generated files that agents should avoid reading:
+
+- **`node_modules/`** — Dependency packages (too large, not source code)
+- **`package-lock.json`** — Dependency lock file (reference only via automation tools)
+- **`.next/`** — Next.js build cache and artifacts (auto-generated)
+- **`dist/`, `build/`, `out/`** — Build output directories (auto-generated)
+- **`.env.local`, `.env.*.local`** — Local environment files (may contain sensitive data)
+- **`next-env.d.ts`** — Auto-generated Next.js type definitions
+- **`*.log`** — Log files (temporary, not source code)
+
+When working with dependencies or build information, use standard tooling commands:
+- `npm list` — Check installed packages
+- `npm run build` — Generate production build
+- `npm run lint` — Check code quality
+- `npm run dev` — Start development server
+
 ---
 
 ## Development Commands
@@ -77,30 +100,13 @@ src/
 
 ## Architecture & Design Patterns
 
-### Next.js App Router
-- Default to **Server Components** (no `"use client"` = server-side)
-- Mark interactive components with `"use client"` directive at the top
-- Routes are file-based: `src/app/[path]/page.tsx` → `/(path)`
-
-### Styling Approach
-- **Tailwind CSS v4** with utility-first classes
-- **Dark mode** supported via `dark:` prefix (Tailwind's automatic dark mode toggle)
-- **Path alias**: Use `@/` to import from `src/` (e.g., `import { Button } from "@/components/ui/button"`)
-
-### Compiler & Performance
-- **React Compiler** enabled in `next.config.ts` (`reactCompiler: true`) — automatically optimizes components, memoizes renders
-- **Turbopack** used for dev builds (faster than webpack)
-- **Partial prefetching** enabled (`partialPrefetching: true`)
-- **Component caching** enabled (`cacheComponents: true`)
-
-### Font Loading
-- Uses **Next.js `next/font/google`** to load Geist Sans and Geist Mono from Google Fonts
-- Fonts injected as CSS variables (`--font-geist-sans`, `--font-geist-mono`)
-- Applied in `src/app/layout.tsx` on the html element
-
-### Metadata
-- Uses `next/metadata` for SEO (title, description, etc.)
-- Set in `src/app/layout.tsx` with `export const metadata: Metadata`
+**See [ARCHITECTURE.md](./docs/ARCHITECTURE.md)** for comprehensive documentation on:
+- Next.js App Router conventions
+- Styling approach (Tailwind CSS v4)
+- Compiler & performance optimizations (React Compiler, Turbopack)
+- Font loading and metadata
+- Component structure and organization
+- Next.js v16 breaking changes and migration guide
 
 ---
 
@@ -133,30 +139,6 @@ src/
 
 ---
 
-## Important: Next.js v16 Breaking Changes
-
-**⚠️ This version of Next.js (16.4.3) has significant breaking changes from earlier versions.**
-
-Before writing or modifying code:
-
-1. **Check the Next.js documentation** in `node_modules/next/dist/docs/` for:
-   - App Router API changes
-   - Server vs. Client Component conventions
-   - Data fetching patterns
-   - Dynamic rendering vs. static generation
-   - Middleware and edge runtime
-
-2. **Read deprecation notices** — Next.js v16 may have removed or changed:
-   - Pages Router API (use App Router instead)
-   - getServerSideProps, getStaticProps (use Server Components or Route Handlers)
-   - next/image API changes
-   - next/font behavior changes
-
-3. **Verify before implementing** — Do not rely solely on training data; consult the official Next.js v16 docs.
-
-**Note**: The AGENTS.md markers in `node_modules/next/dist/server/lib/generate-agent-files.js` are auto-generated. If removed from a diff, `next dev` will recreate them. Keep them in commits to avoid noise.
-
----
 
 ## Testing & Quality
 
