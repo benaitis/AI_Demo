@@ -19,12 +19,14 @@ This file contains comprehensive guidance for Claude and other AI agents. For Cl
 ## Technology Stack
 
 ### Core Framework
+
 - **Next.js**: 16.4.3 with App Router
 - **React**: 19.3.0
 - **React DOM**: 19.3.0
 - **TypeScript**: ^5 (strict mode enabled)
 
 ### Styling & UI
+
 - **Tailwind CSS**: v4 with Turbopack plugin
 - **Class Variance Authority**: ^0.7.1 (for component variants)
 - **clsx**: ^2.1.1 (for className utility)
@@ -32,6 +34,7 @@ This file contains comprehensive guidance for Claude and other AI agents. For Cl
 - **shadcn/ui**: ^0.0.4 (component library - available but not yet used)
 
 ### Development & Tooling
+
 - **ESLint**: ^9 with Next.js and TypeScript configs
 - **Prettier**: ^3.9.10 with Tailwind CSS plugin
 - **TypeScript**: ^5 with strict checking
@@ -39,6 +42,7 @@ This file contains comprehensive guidance for Claude and other AI agents. For Cl
 - **Tailwindcss/turbopack**: ^4 (for fast builds)
 
 ### Validation
+
 - **Zod**: ^4.6.7 (schema validation)
 
 ---
@@ -54,15 +58,18 @@ src/
 ```
 
 **Configuration Files**:
+
 - `next.config.ts` — Next.js configuration (React Compiler, Turbopack, CSS loader)
 - `tsconfig.json` — TypeScript config with `@/*` path alias mapping to `src/*`
 - `eslint.config.mjs` — ESLint configuration (Next.js core web vitals + TypeScript)
 - `.eslintignore` — Built via `eslint.config.mjs` globalIgnores (ignores `.next/`, `out/`, `build/`, `next-env.d.ts`)
 
 **Public Assets**:
+
 - `public/` — Static files (next.svg, vercel.svg, favicon, etc.)
 
 **Documentation**:
+
 - `docs/` — Additional documentation including architecture and design patterns
 
 ---
@@ -80,6 +87,7 @@ The following are build artifacts, dependencies, or auto-generated files that ag
 - **`*.log`** — Log files (temporary, not source code)
 
 When working with dependencies or build information, use standard tooling commands:
+
 - `npm list` — Check installed packages
 - `npm run build` — Generate production build
 - `npm run lint` — Check code quality
@@ -89,18 +97,19 @@ When working with dependencies or build information, use standard tooling comman
 
 ## Development Commands
 
-| Command | Purpose |
-|---------|---------|
-| `npm run dev` | Start Next.js dev server (http://localhost:3000 with hot reload) |
-| `npm run build` | Build for production |
-| `npm start` | Start production server |
-| `npm run lint` | Run ESLint on the codebase |
+| Command         | Purpose                                                          |
+| --------------- | ---------------------------------------------------------------- |
+| `npm run dev`   | Start Next.js dev server (http://localhost:3000 with hot reload) |
+| `npm run build` | Build for production                                             |
+| `npm start`     | Start production server                                          |
+| `npm run lint`  | Run ESLint on the codebase                                       |
 
 ---
 
 ## Architecture & Design Patterns
 
 **See [ARCHITECTURE.md](./docs/ARCHITECTURE.md)** for comprehensive documentation on:
+
 - Next.js App Router conventions
 - Styling approach (Tailwind CSS v4)
 - Compiler & performance optimizations (React Compiler, Turbopack)
@@ -113,40 +122,52 @@ When working with dependencies or build information, use standard tooling comman
 ## Code Standards & Guidelines
 
 ### TypeScript
+
 - Strict mode enabled (`strict: true` in tsconfig.json)
 - ES2017 target with ESNext module resolution
 - Type all props and return types explicitly
 
 ### ESLint
+
 - Uses Next.js core web vitals rules + TypeScript rules
 - Config file: `eslint.config.mjs`
 - Run with `npm run lint`
 
 ### Prettier
+
 - Configured with Tailwind CSS plugin for class sorting
 - Integrated via ESLint
 - Automatically formats on save (if configured in IDE)
 
 ### Tailwind CSS v4
+
 - No `@tailwind` directive needed in new files (auto-scanned)
 - Use `@apply` for custom component styles
 - Dark mode via `dark:` prefix
 
 ### Component Library (shadcn/ui)
+
 - Add components with: `npx shadcn-ui@latest add [component-name]`
 - Components scaffold to `src/components/ui/`
 - Based on Radix UI primitives with Tailwind styling
 
 ---
 
+## Planning & Design
+
+When generating plans for implementation tasks, **use the grill-me skill** located at `@.agents/skills/grill-me/` to ensure structured and validated planning. This skill provides a standardized approach to plan validation and design thinking across all agent work.
+
+---
 
 ## Testing & Quality
 
 ### Currently Configured
+
 - **ESLint**: Code quality checks (syntax, best practices, Next.js rules)
 - **TypeScript**: Type checking at build time
 
 ### Not Yet Configured
+
 - Unit/integration tests (Jest, Vitest can be added)
 - E2E tests (Playwright, Cypress can be added)
 - Performance profiling
@@ -166,23 +187,27 @@ When working with dependencies or build information, use standard tooling comman
 ## Common Tasks for AI Agents
 
 ### Adding a New Page
+
 1. Create `src/app/[route-name]/page.tsx`
 2. Export default React component (Server Component by default)
 3. Add metadata in layout if needed
 
 ### Adding a New Component
+
 1. Create `src/components/[ComponentName].tsx`
 2. Add `"use client"` if interactive (state, event handlers, hooks)
 3. Import Tailwind classes, shadcn/ui components as needed
 4. Export default or named export
 
 ### Styling a Component
+
 1. Use Tailwind classes directly in JSX
 2. For variants/conditional styles, consider using `clsx` or Class Variance Authority
 3. Use `dark:` prefix for dark mode support
 4. Avoid inline styles; use Tailwind
 
 ### Adding UI Components from shadcn/ui
+
 ```bash
 npx shadcn-ui@latest add button
 npx shadcn-ui@latest add card
@@ -190,6 +215,7 @@ npx shadcn-ui@latest add form
 ```
 
 ### Running the Dev Server
+
 ```bash
 npm run dev
 # Open http://localhost:3000 in browser
@@ -197,6 +223,7 @@ npm run dev
 ```
 
 ### Checking for Errors
+
 ```bash
 npm run lint      # ESLint errors/warnings
 npm run build     # Full build errors (TypeScript, ESLint, Next.js)
@@ -227,21 +254,25 @@ npm run build     # Full build errors (TypeScript, ESLint, Next.js)
 ## Troubleshooting
 
 ### Dev Server Won't Start
+
 - Clear `.next/` cache: `rm -rf .next` then `npm run dev`
 - Check port 3000 isn't in use: `lsof -i :3000`
 - Ensure `npm install` completed successfully
 
 ### TypeScript Errors
+
 - Run `npm run build` to see full error list
 - Check `tsconfig.json` for compiler options
 - Verify imports use correct paths (use `@/` alias)
 
 ### Tailwind Styles Not Applying
+
 - Ensure component is in `src/` (scanned by Tailwind)
 - Check class names are correct
 - Restart dev server to regenerate Tailwind CSS
 
 ### Next.js Build Fails
+
 - Check `next.config.ts` for syntax errors
 - Review error message for file/line number
 - Ensure all imports are valid
